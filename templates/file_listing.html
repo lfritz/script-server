@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<script src="{{ url_for('static', filename='file_listing.js') }}"></script>
+<form action="{{ url_for('.file_action') }}" method="post">
+<input name="p" value="{{ p }}" hidden>
+<table id="files">
+<tr><th></th><th>Name</th><th>Size</th><th>Date Modified</th></tr>
+{% for file in files %}
+    <tr>
+        <td><input name="file_{{ file.name }}" type="checkbox"></td>
+        <td>
+            <a href="{{ url_for('.file_ui', p=file.link_path) }}">
+                {{ file.name }}
+            </a>
+        </td>
+        <td>{{ file.size | format_bytes }}</td>
+        <td>{{ file.mtime | format_datetime }}</td>
+    </tr>
+{% else %}
+    <tr><td colspan=3><em>Empty directory</em></td></tr>
+{% endfor %}
+</table>
+    <input type=submit name="button" value="Delete">
+    <input type=submit name="button" value="Cut">
+    <input type=submit name="button" value="Copy">
+</form>
+<form action="{{ url_for('.file_paste') }}" method="post">
+    <input name="p" value="{{ p }}" hidden>
+    {% if paste_count %}
+        <input type=submit name="button" value="Paste">
+    {% else %}
+        <input type=submit name="button" value="Paste" disabled>
+    {% endif %}
+</form>
+<p>
+<form action="{{ url_for('.upload') }}" enctype="multipart/form-data"
+      method="post">
+    <input name="p" value="{{ p }}" hidden>
+    <input id="upload-file" type=file name="file">
+    <input id="upload-activate" type=submit name="button" value="Upload File">
+    <input id="upload-submit" type=submit name="button" value="Upload">
+</form>
+</p>
+<p>
+<form action="{{ url_for('.mkdir') }}" method="post">
+    <input name="p" value="{{ p }}" hidden>
+    <input id="mkdir-name" name="dirname" placeholder="folder name">
+    <input id="mkdir-activate" type=submit name="button"
+           value="New Folder">
+    <input id="mkdir-submit" type=submit name="button"
+           value="Create Folder">
+</form>
+</p>
+{% endblock %}

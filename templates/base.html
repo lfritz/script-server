@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+<title>Server {{ config['NAME'] }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='jquery-2.1.1.min.js') }}"></script>
+{% if g.user_id %}
+<script src="{{ url_for('static', filename='menu.js') }}"></script>
+{% endif %}
+</head>
+
+<nav id="menu">
+    <ul id="menulist">
+        <li class="name"><a href="{{ url_for('.info') }}">{{ config['NAME'] }}</a></li>
+        {% if g.user_id %}
+        <li><a id="user" href="#">{{ g.username }}</a></li>
+        {% if g.admin %}
+        <li><a href="{{ url_for('.list_users') }}">Users</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('.file_ui', p='') }}">Files</a></li>
+        <li><a href="{{ url_for('.jobs') }}">Jobs</a></li>
+        <li><a href="{{ url_for('.script') }}">Script</a></li>
+        {% else %}
+        <li><a href="{{ url_for('.login') }}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% if g.user_id %}
+<div id="user-area">
+<a href="{{ url_for('.logout') }}">Logout</a>
+</div>
+{% endif %}
+
+
+{% block main %}{% endblock %}
+
+</html>

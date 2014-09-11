@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('.edit_user', user_id=user_id) }}"
+      method="post">
+    <dl>
+    <dt>Username:
+    <dd><input type="text" name="username" value="{{username}}">
+    <dt>Directory:
+    <dd><input type="text" name="directory" value="{{directory}}">
+    <dd><input type=submit name="button" value="Update">
+    <dd><input type=submit name="button" value="Delete">
+    </dl>
+</form>
+<a href="{{ url_for('.change_pwd', user_id=user_id) }}">
+    Change Password
+</a>
+{% endblock %}

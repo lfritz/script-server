@@ -1,0 +1,59 @@
+Commands to test the script server with curl:
+
+# bash
+url=http://localhost:5000/api
+get() {
+    curl -b cookies $argv
+}
+post_json() {
+    curl -b cookies -H "Content-Type:application/json" --data-binary $argv
+}
+post_code() {
+    curl -b cookies -H "Content-Type:text/plain" --data-binary $argv
+}
+
+# fish
+set url http://localhost:5000/api
+function get
+    curl -b cookies $argv
+end
+function post_json
+    curl -b cookies -H "Content-Type:application/json" --data-binary $argv
+end
+function post_code
+    curl -b cookies -H "Content-Type:text/plain" --data-binary $argv
+end
+
+# login
+curl -c cookies --data '{"username":"admin","password":"admin"}' $url/login
+
+# logout
+curl -c cookies --data '' $url/logout
+
+# server info
+get $url/info
+
+# run script
+post_code 'print("Hello, World!")' $url/run
+
+# list jobs
+get $url/jobs
+
+# job info
+get $url/jobs/1
+
+# kill job
+post_json '{"command": "terminate"}' $url/jobs/1
+post_json '{"command": "kill"}' $url/jobs/1
+
+# list files
+get $url/files/
+
+# upload file
+curl -b cookies -X PUT --data aaa $url/files/aaa
+
+# download file
+get $url/files/aaa
+
+# delete file
+curl -b cookies -X DELETE $url/files/aaa

@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+}
+#menu {
+    font: 1em Helvetica, Arial, sans-serif;
+    color: white;
+    background-color: black;
+    padding: 0.5em;
+}
+#menulist {
+    list-style: none;
+    display: inline;
+}
+#menulist .name {
+    float: left;
+}
+#menulist li {
+    float: right;
+    padding: 0 0.5em;
+}
+#menu a {
+    text-decoration: none;
+    color: white;
+}
+#menu a:hover {
+    color: #ddd;
+}
+#user-area {
+    position: absolute;
+    top: 2em;
+    right: 0;
+    display: none;
+}

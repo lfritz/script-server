@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('.job_details', job_id=job.job_id) }}"
+      method="post">
+    <dl>
+    <dt>Status:
+    <dd>{{job.status}}
+    <dt>User:
+    <dd>{{job.user}}
+    <dt>Script:
+    <dd><pre><code>{{job.script}}</code></pre>
+    <dt>Start time:
+    <dd>{{job.start}}
+    <dt>End time:
+    <dd>{{job.end}}
+    <dt>Script log:
+    <dd><pre>{{job.out}}</pre>
+    <dt>Error log:
+    <dt><pre>{{job.err}}</pre>
+    <dd><input type=submit name="button" value="Terminate">
+    <dd><input type=submit name="button" value="Kill">
+    </dl>
+</form>
+</a>
+{% endblock %}

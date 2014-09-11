@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('.change_pwd', user_id=user.user_id) }}"
+      method="post">
+    <dl>
+    <dt>New password:
+    <dd><input type="password" name="password1">
+    <dt>Retype new password:
+    <dd><input type="password" name="password2">
+    <dd><input type=submit name="button" value="Update">
+    </dl>
+</form>
+{% endblock %}

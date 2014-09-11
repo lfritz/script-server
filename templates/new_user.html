@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="{{ url_for('.new_user') }}" method="post">
+    <dl>
+    <dt>Username:
+    <dd><input type="text" name="username" autofocus>
+    <dt>Password:
+    <dd><input type="password" name="password">
+    <dt>Directory:
+    <dd><input type="text" name="directory">
+    <dd><input type=submit value="New">
+    </dl>
+</form>
+{% endblock %}
